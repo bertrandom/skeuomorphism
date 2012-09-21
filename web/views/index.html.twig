@@ -172,7 +172,7 @@
                 var href = target.href;
 
                 if ($(target).data('tweet') == 1) {
-                    href = encodeURI(href + '/' + $('#notepad').val().replace(/ /gi,'-').replace(/\n/g, '_'));
+                    href = encodeURI(href + '/' + $('#notepad').val().replace(/ /gi,'-').replace(/\n/g, '_').replace(/\?/g, '¿'));
                 }
 
                 window.open(href, 'intent', windowOptions + ',width=' + width +
