@@ -19,7 +19,7 @@ $app->get('/', function () use ($app) {
 $app->get('/{message}', function ($message) use ($app) {
     
     return $app['twig']->render('index.html.twig', array(
-        'message' => str_replace("-", ' ', $message),
+        'message' => str_replace("_", "\n", str_replace("-", ' ', $message)),
     ));    
 
 });

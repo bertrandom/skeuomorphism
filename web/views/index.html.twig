@@ -107,7 +107,7 @@
     <div id="clipboard" class="container">
         <textarea id="notepad" rows="10" cols="50">{% if message is defined %}{{ message }}{% endif %}</textarea>
         <div class="twitter_buttons">
-            <a class="twitter_link" href="https://twitter.com/intent/tweet?url=http://skeuomorphism.org"><img src="/img/twitter.png" /></a>
+            <a data-tweet="1" class="twitter_link" href="https://twitter.com/intent/tweet?url=http://skeuomorphism.org"><img src="/img/twitter.png" /></a>
             <p><a class="twitter_link" href="https://twitter.com/intent/user?screen_name=bertrandom">@bertrandom</a></p>
         </div>
     </div>
@@ -169,7 +169,13 @@
                    top = Math.round((winHeight / 2) - (height / 2));
                 }
 
-                window.open(target.href, 'intent', windowOptions + ',width=' + width +
+                var href = target.href;
+
+                if ($(target).data('tweet') == 1) {
+                    href = encodeURI(href + '/' + $('#notepad').val().replace(/ /gi,'-').replace(/\n/g, '_'));
+                }
+
+                window.open(href, 'intent', windowOptions + ',width=' + width +
                                 ',height=' + height + ',left=' + left + ',top=' + top);
 
                 e.preventDefault();
