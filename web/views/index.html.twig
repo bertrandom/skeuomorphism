@@ -3,8 +3,8 @@
 <head>
     <title>skeuomorphism</title>
     <meta name="viewport" content="width=940px;">
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/favicon.ico" rel="icon" type="image/x-icon" />
     <!--
     
         skeuomorphism.org
@@ -23,7 +23,7 @@
             
             max-width: 940px;
             height:739px;
-            background-image:url('img/clipboard.jpg');
+            background-image:url('/img/clipboard.jpg');
         
         }
         
@@ -105,9 +105,9 @@
 <body>
 
     <div id="clipboard" class="container">
-        <textarea id="notepad" rows="10" cols="50"></textarea>
+        <textarea id="notepad" rows="10" cols="50">{% if message is defined %}{{ message }}{% endif %}</textarea>
         <div class="twitter_buttons">
-            <a class="twitter_link" href="https://twitter.com/intent/tweet?url=http://skeuomorphism.org"><img src="img/twitter.png" /></a>
+            <a class="twitter_link" href="https://twitter.com/intent/tweet?url=http://skeuomorphism.org"><img src="/img/twitter.png" /></a>
             <p><a class="twitter_link" href="https://twitter.com/intent/user?screen_name=bertrandom">@bertrandom</a></p>
         </div>
     </div>
@@ -117,10 +117,25 @@
         $(document).ready(function(){
             
             $('#notepad').focus();
+            
+            // This moves the cursor to the end.
+            
+            if ($('#notepad')[0].value != '') {
+
+                var popped_value = $('#notepad')[0].value;
+                $('#notepad')[0].value = popped_value + ' ';
+                $('#notepad')[0].value = popped_value;
+                
+            }
 
             var editor = document.querySelector("#notepad");
-            if (window.localStorage["TextEditorData"]) {
-                editor.value = window.localStorage["TextEditorData"];
+
+            if (editor.value == '') {
+
+                if (window.localStorage["TextEditorData"]) {
+                    editor.value = window.localStorage["TextEditorData"];
+                }
+                
             }
             
             editor.addEventListener("keyup", function() {
