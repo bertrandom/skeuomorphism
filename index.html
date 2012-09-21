@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>skeuomorphism</title>
+    <meta name="viewport" content="width=940px;">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+    <!--
+    
+        skeuomorphism.org
+        Bertrand Fan (bertrand@fan.net)
+        9/21/2012
+
+        CSS3 Transforms + HTML5 Local Storage = THE FUTURE.
+    
+        Clipboard is a stock image from PhotoDisc - Object Series 40 - Objects of Business, which is a
+        pretty amazing name for a stock image CD-ROM if you ask me.
+        
+    -->    
+    <style>
+
+        #clipboard {
+            
+            max-width: 940px;
+            height:739px;
+            background-image:url('img/clipboard.jpg');
+        
+        }
+        
+        .twitter_buttons {
+            
+            position: relative;
+            top: 225px;
+            left: 511px;
+            
+            width: 200px;
+            height: 30px;
+            
+            transform: rotateX(24deg) rotateY(38deg) skew(-40deg);
+            -ms-transform: rotateX(24deg) rotateY(38deg) skew(-40deg);
+            -webkit-transform: rotateX(24deg) rotateY(38deg) skew(-40deg);
+            -o-transform: rotateX(24deg) rotateY(38deg) skew(-40deg);
+            -moz-transform: rotateX(24deg) rotateY(38deg) skew(-40deg);
+            
+            font-family: "Chalkboard", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            
+            z-index: 999;
+        }
+        
+        .twitter_buttons img {
+            width:40px; 
+            display: inline; 
+            float:left;
+        }
+        
+        .twitter_buttons p {
+            margin-left: 5px; 
+            margin-top: 5px; 
+            float:left;
+        }
+        
+        .twitter_link {
+            color: #7e7e7e;
+        }
+        
+        textarea {
+
+            width: 639px;
+            height: 387px;
+
+            transform: rotateX(8deg) rotateY(57deg) skew(-51deg) translate(480px,104px);
+            -ms-transform: rotateX(8deg) rotateY(57deg) skew(-51deg) translate(480px,104px);
+            -webkit-transform: rotateX(8deg) rotateY(57deg) skew(-51deg) translate(480px,104px);
+            -o-transform: rotateX(8deg) rotateY(57deg) skew(-51deg) translate(480px,104px);
+            -moz-transform: rotateX(8deg) rotateY(57deg) skew(-51deg) translate(480px,104px);            
+
+            font-family: "Chalkboard", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+            outline: none;
+            border: none;
+            border-style: none; 
+            border-color: transparent; 
+            background-color:rgba(0,0,0,0);
+            
+            /* Removes the resize UI in Chrome */
+            resize: none;
+            
+        }
+
+    </style>
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-8093261-8']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</head>
+<body>
+
+    <div id="clipboard" class="container">
+        <textarea id="notepad" rows="10" cols="50"></textarea>
+        <div class="twitter_buttons">
+            <a class="twitter_link" href="https://twitter.com/intent/tweet?url=http://skeuomorphism.org"><img src="img/twitter.png" /></a>
+            <p><a class="twitter_link" href="https://twitter.com/intent/user?screen_name=bertrandom">@bertrandom</a></p>
+        </div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            
+            $('#notepad').focus();
+
+            var editor = document.querySelector("#notepad");
+            if (window.localStorage["TextEditorData"]) {
+                editor.value = window.localStorage["TextEditorData"];
+            }
+            
+            editor.addEventListener("keyup", function() {
+                window.localStorage["TextEditorData"] = editor.value;
+            });
+            
+            $('#clipboard').click(function(e) {
+                $('#notepad').focus();
+            });
+            
+            // Follow us on twitter link
+            $('.twitter_link').click(function(e) {
+
+                var target = e.target;
+
+                if (target.tagName == 'IMG') {
+                    target = target.parentNode;
+                }
+
+                var windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes',
+                    width = 550,
+                    height = 420,
+                    winHeight = screen.height,
+                    winWidth = screen.width,
+                    left, top;
+
+                left = Math.round((winWidth / 2) - (width / 2));
+                top = 0;
+
+                if (winHeight > height) {
+                   top = Math.round((winHeight / 2) - (height / 2));
+                }
+
+                window.open(target.href, 'intent', windowOptions + ',width=' + width +
+                                ',height=' + height + ',left=' + left + ',top=' + top);
+
+                e.preventDefault();
+
+            });            
+            
+        });
+    </script>
+
+</body>
+</html>
